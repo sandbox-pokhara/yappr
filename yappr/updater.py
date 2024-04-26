@@ -22,12 +22,14 @@ class Updater:
         first_update_interval: float = 10,
         update_interval: float = 900,
         exit_flag: Event = Event(),
+        new_update_flag: Event = Event(),
     ):
         self.package_name = package_name
         self.first_update_interval = first_update_interval
         self.update_interval = update_interval
         self.current_version = self.get_version()
         self.exit_flag = exit_flag
+        self.new_update_flag = new_update_flag
 
     def get_version(self) -> str:
         try:
@@ -78,6 +80,7 @@ class Updater:
                 return
             logger.info(f"New version found: {current} -> {latest}")
             self.update()
+            self.new_update_flag.set()
             self.exit_flag.set()
         except Exception:
             logger.exception("Unhandled exception in updater.")
