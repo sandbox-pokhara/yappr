@@ -79,8 +79,8 @@ class Updater:
                 logger.info("Already upto date.")
                 return
             logger.info(f"New version found: {current} -> {latest}")
-            self.update()
             self.new_update_flag.set()
+            self.update()
             self.exit_flag.set()
         except Exception:
             logger.exception("Unhandled exception in updater.")
