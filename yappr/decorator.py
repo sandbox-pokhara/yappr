@@ -3,6 +3,7 @@ import sys
 import tkinter as tk
 import traceback
 from argparse import ArgumentParser
+from pathlib import Path
 from threading import Thread
 from tkinter.messagebox import showerror  # type: ignore
 from typing import Any
@@ -47,7 +48,8 @@ def yappr(
                         return
 
                     # if exit flag was set by updater
-                    os.execl(sys.executable, sys.executable, *sys.argv)
+                    p = Path(sys.executable)
+                    os.execl(p, p.stem, *sys.argv)
                 except Exception:
                     logger.exception("Unhandled Exception")
                     root = tk.Tk()
