@@ -27,8 +27,8 @@ def yappr(
             # Initialize updater, updater needs to start as
             # soon as the script starts
             parser = ArgumentParser()
-            parser.add_argument("-nu", "--no-updater", action="store_true")
-            cmd_args, _ = parser.parse_known_args()
+            parser.add_argument("--no-updater", action="store_true")
+            cmd_args, _ = parser.parse_known_args(["--no-updater"])
             if not cmd_args.no_updater:
                 Thread(target=updater.check_for_updates_loop).start()
 
