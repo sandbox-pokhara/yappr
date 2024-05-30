@@ -26,10 +26,13 @@ def yappr(
         def wrapped(*args: Param.args, **kwargs: Param.kwargs) -> None:
             # Initialize updater, updater needs to start as
             # soon as the script starts
-            parser = ArgumentParser()
+            parser = ArgumentParser(add_help=False)
             parser.add_argument("--no-updater", action="store_true")
-            cmd_args, _ = parser.parse_known_args(["--no-updater"])
-            if not cmd_args.no_updater:
+            parser.add_argument("-h", "--help", action="store_true")
+            parser.add_argument("-v", "--version", action="store_true")
+            cmd_args, _ = parser.parse_known_args()
+            # do not run updater on help or version command
+            if not (cmd_args.no_updater or cmd_args.help or cmd_args.version):
                 Thread(target=updater.check_for_updates_loop).start()
 
             while True:
