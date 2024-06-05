@@ -40,7 +40,7 @@ class Updater:
     def update(self):
         logger.info("Collecting new packages...")
         run(
-            ["pip", "install", "--upgrade", "project-l"],
+            ["pip", "install", "--upgrade", self.package_name],
             text=True,
             stdout=PIPE,
             stderr=PIPE,
